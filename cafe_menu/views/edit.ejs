@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>메뉴 수정</title>
+</head>
+
+<body>
+  <main>
+    <h1>메뉴 수정</h1>
+
+    <form method="POST" action="/menus/<%= menu.id %>/edit">
+      <input type="text" name="name" maxlength="100" value="<%= menu.name %>" required>
+      <input type="number" name="price" value="<%= menu.price %>" min="0" max="2147483647" step="1" required>
+      <select name="category">
+        <option <%= menu.category === "커피" ? "selected" : "" %>>커피</option>
+        <option <%= menu.category === "티" ? "selected" : "" %>>티</option>
+        <option <%= menu.category === "디저트" ? "selected" : "" %>>디저트</option>
+      </select>
+      <button type="submit">저장</button>
+    </form>
+
+    <p><a href="/menus">← 돌아가기</a></p>
+  </main>
+</body>
+
+</html>

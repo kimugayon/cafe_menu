@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>카페 메뉴</title>
+</head>
+
+<body>
+  <main>
+    <h1>카페 메뉴</h1>
+
+    <form class="add-form" method="POST" action="/menus">
+      <input type="text" name="name" maxlength="100" placeholder="메뉴 이름" required>
+      <input type="number" name="price" placeholder="가격" min="0" max="2147483647" step="1" required>
+      <select name="category">
+        <option>커피</option>
+        <option>티</option>
+        <option>디저트</option>
+      </select>
+      <button type="submit">추가</button>
+    </form>
+
+    <% let currentCategory = ""; %>
+    <% menus.forEach(function (menu) { %>
+      <% if (menu.category !== currentCategory) { currentCategory = menu.category; %>
+        <div class="category"><%= currentCategory %></div>
+      <% } %>
+      <div class="item">
+        <span class="name"><%= menu.name %></span>
+        <span class="price"><%= menu.price.toLocaleString() %>원</span>
+
+        <a class="edit-link" href="/menus/<%= menu.id %>/edit">수정</a>
+
+        <form method="POST" action="/menus/<%= menu.id %>/delete"
+              onsubmit="return confirm('이 메뉴를 삭제할까요?');">
+          <button type="submit" class="delete-btn">삭제</button>
+        </form>
+      </div>
+    <% }); %>
+  </main>
+</body>
+
+</html>
